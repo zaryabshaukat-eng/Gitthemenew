@@ -1,0 +1,55 @@
+<div class="auth-page">
+  <div class="auth-page__split">
+    <!-- Left decorative panel — matches React: background linear-gradient(160deg,#0a0a0a,#1a1208) -->
+    <div class="auth-page__deco" aria-hidden="true" style="background:linear-gradient(160deg,#0a0a0a,#1a1208);">
+      <div class="auth-page__deco-inner">
+        <span class="auth-deco__logo">UNIVERSAL JACKETS</span>
+        <p class="auth-deco__quote">"Outerwear that moves with you."</p>
+        <div class="auth-deco__shapes">
+          <div class="auth-deco__circle auth-deco__circle--1"></div>
+          <div class="auth-deco__circle auth-deco__circle--2"></div>
+          <div class="auth-deco__circle auth-deco__circle--3"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right form panel -->
+    <div class="auth-page__form-panel">
+      <div class="auth-page__form-inner">
+        <a href="/" class="auth-page__back">← Back to store</a>
+
+        <h1 class="auth-page__title">Sign In</h1>
+        <p class="auth-page__sub">Welcome back to Universal Jackets.</p>
+
+        {%- form 'customer_login', id: 'CustomerLoginForm' -%}
+          {%- if form.errors -%}
+            <div class="form-error" role="alert">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="form-field">
+            <label for="CustomerEmail" class="form-label">Email</label>
+            <input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" class="form-input" placeholder="you@email.com" required {% if form.email %}value="{{ form.email }}"{% endif %}>
+          </div>
+
+          <div class="form-field">
+            <label for="CustomerPassword" class="form-label">Password</label>
+            <input type="password" name="customer[password]" id="CustomerPassword" autocomplete="current-password" class="form-input" placeholder="••••••••" required>
+          </div>
+
+          <div style="text-align:right; font-size:13px; margin-top:-8px;">
+            <a href="{{ routes.account_recover_url }}" style="color:var(--clr-gold);">Forgot password?</a>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full" style="margin-top:12px;">Sign In</button>
+        {%- endform -%}
+
+        <p style="text-align:center; margin-top:24px; font-size:13px; color:var(--clr-muted);">
+          Don't have an account? <a href="{{ routes.account_register_url }}" style="color:var(--clr-gold);">Create one</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
