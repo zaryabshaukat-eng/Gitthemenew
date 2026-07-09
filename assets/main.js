@@ -170,6 +170,54 @@ window.addEventListener('scroll', () => {
 })();
 
 /* ============================================================
+   PDP RELATED PRODUCTS — mobile auto-slide + touch swipe
+   ============================================================ */
+(function initPdpRelatedSlider() {
+  const track = $('#pdpRelatedTrack');
+  if (!track) return;
+
+  const CARD_W = () => (track.querySelector('.product-card')?.offsetWidth || 220) + 14;
+  let timer = null;
+  let resumeTimeout = null;
+
+  function isSliderActive() {
+    // Only auto-slides on mobile, where CSS turns the grid into a scroll track.
+    return track.scrollWidth > track.clientWidth + 4;
+  }
+
+  function tick() {
+    if (!isSliderActive()) return;
+    if (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10) {
+      track.scrollTo({ left: 0, behavior: 'smooth' });
+    } else {
+      track.scrollBy({ left: CARD_W(), behavior: 'smooth' });
+    }
+  }
+
+  function start() {
+    stop();
+    timer = setInterval(tick, 3500);
+  }
+  function stop() {
+    if (timer) clearInterval(timer);
+    timer = null;
+  }
+  function pauseThenResume() {
+    stop();
+    clearTimeout(resumeTimeout);
+    resumeTimeout = setTimeout(start, 5000);
+  }
+
+  // Manual finger control always wins: pause auto-slide while the user is
+  // dragging/touching, then resume automatic sliding shortly after.
+  on(track, 'touchstart', pauseThenResume, { passive: true });
+  on(track, 'pointerdown', pauseThenResume);
+  on(track, 'wheel', pauseThenResume, { passive: true });
+
+  start();
+})();
+
+/* ============================================================
    NAV DRAWER
    ============================================================ */
 (function initNavDrawer() {
