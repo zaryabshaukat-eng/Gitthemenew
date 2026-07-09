@@ -18,14 +18,31 @@
       <button class="slider-arrow slider-arrow--prev" id="recPrev" aria-label="Previous products">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
       </button>
-      <div class="recommended-products__track" id="recTrack">
-        {%- assign rec_collection = collections[section.settings.collection.handle] | default: collections.all -%}
-        {%- assign rec_products = rec_collection.products | sort: 'published_at' | reverse -%}
+      <div class="recommended-products__track" id="recTrack" data-shuffle="true">
+        {%- comment -%}
+          Pull a spread of products from every category (and sub-category
+          collection) in the store instead of a single collection, so the
+          rail can be reshuffled client-side into a random, no-two-alike-
+          in-a-row order. If a specific collection is chosen in the section
+          settings, honor that instead.
+        {%- endcomment -%}
         {%- assign shown = 0 -%}
-        {%- for product in rec_products limit: 20 -%}
-          {%- assign shown = shown | plus: 1 -%}
-          {%- render 'product-card', product: product, card_class: 'recommended-card' -%}
-        {%- endfor -%}
+        {%- if section.settings.collection != blank -%}
+          {%- assign rec_collection = collections[section.settings.collection.handle] -%}
+          {%- for product in rec_collection.products limit: 20 -%}
+            {%- assign shown = shown | plus: 1 -%}
+            {%- render 'product-card', product: product, card_class: 'recommended-card', data_category: rec_collection.title -%}
+          {%- endfor -%}
+        {%- else -%}
+          {%- for collection in collections limit: 16 -%}
+            {%- if collection.products.size > 0 -%}
+              {%- for product in collection.products limit: 3 -%}
+                {%- assign shown = shown | plus: 1 -%}
+                {%- render 'product-card', product: product, card_class: 'recommended-card', data_category: collection.title -%}
+              {%- endfor -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
         {%- if shown == 0 -%}
           {%- for i in (1..8) -%}
             <div class="product-card recommended-card product-card--placeholder">

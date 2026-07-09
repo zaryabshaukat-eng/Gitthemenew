@@ -140,6 +140,76 @@ window.addEventListener('scroll', () => {
 /* ============================================================
    RECOMMENDED PRODUCTS SLIDER
    ============================================================ */
+(function shuffleRecTrack() {
+  const track = $('#recTrack');
+  if (!track || track.dataset.shuffle !== 'true') return;
+
+  const cards = $('.product-card', track);
+  if (!cards.length) return;
+
+  // De-duplicate by product id (a product can live in more than one
+  // category/collection we pulled from) while preserving first occurrence.
+  const seen = new Set();
+  const unique = [];
+  cards.forEach(card => {
+    const id = card.dataset.productId;
+    if (id && seen.has(id)) { card.remove(); return; }
+    if (id) seen.add(id);
+    unique.push(card);
+  });
+
+  // Group cards by category so we can interleave them.
+  const buckets = new Map();
+  unique.forEach(card => {
+    const cat = card.dataset.category || '__uncategorized__';
+    if (!buckets.has(cat)) buckets.set(cat, []);
+    buckets.get(cat).push(card);
+  });
+
+  // Shuffle within each category bucket (Fisher-Yates).
+  buckets.forEach(bucket => {
+    for (let i = bucket.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [bucket[i], bucket[j]] = [bucket[j], bucket[i]];
+    }
+  });
+
+  // Round-robin across a randomized category order, skipping the category
+  // used immediately before (when another category still has cards left),
+  // so the same category never appears twice in a row.
+  let categories = Array.from(buckets.keys());
+  const frag = document.createDocumentFragment();
+  let lastCat = null;
+  const remaining = () => categories.some(c => buckets.get(c).length > 0);
+
+  while (remaining()) {
+    // Shuffle the category order each round for extra randomness.
+    for (let i = categories.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [categories[i], categories[j]] = [categories[j], categories[i]];
+    }
+    let picked = false;
+    for (const cat of categories) {
+      const bucket = buckets.get(cat);
+      if (!bucket.length) continue;
+      if (cat === lastCat && categories.some(c => c !== cat && buckets.get(c).length > 0)) continue;
+      frag.appendChild(bucket.shift());
+      lastCat = cat;
+      picked = true;
+      break;
+    }
+    // Safety net: if every remaining card is the same category, just drain it.
+    if (!picked) {
+      for (const cat of categories) {
+        const bucket = buckets.get(cat);
+        if (bucket.length) { frag.appendChild(bucket.shift()); lastCat = cat; break; }
+      }
+    }
+  }
+
+  track.appendChild(frag);
+})();
+
 (function initRecSlider() {
   const track = $('#recTrack');
   if (!track) return;
@@ -196,7 +266,7 @@ window.addEventListener('scroll', () => {
 
   function start() {
     stop();
-    timer = setInterval(tick, 3500);
+    timer = setInterval(tick, 2300);
   }
   function stop() {
     if (timer) clearInterval(timer);
