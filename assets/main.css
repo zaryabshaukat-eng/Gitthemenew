@@ -1371,30 +1371,20 @@ input, textarea, select { font-family: inherit; }
   will-change: transform;
 }
 
-/* Stylish scroll-back controls layered over each marquee row so a shopper
-   who spots something they liked can pause the drift and step back to it. */
-.marquee-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 5;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--transition-base), background var(--transition-base), transform var(--transition-base);
-}
-.marquee-wrapper:hover .marquee-arrow,
-.marquee-arrow:focus-visible {
-  opacity: 1;
-  pointer-events: auto;
-}
-.marquee-arrow--prev { left: clamp(8px, 2vw, 24px); }
-.marquee-arrow--next { right: clamp(8px, 2vw, 24px); }
-.marquee-arrow:hover { transform: translateY(-50%) scale(1.08); }
+/* Stylish scroll-back controls, desktop only: on touch devices the row
+   itself is finger-draggable, so buttons are reserved for pointer/desktop
+   use and sit centered beneath the row with breathing room between them. */
+.marquee-track { cursor: grab; }
+.marquee-track.is-dragging { cursor: grabbing; }
 
-@media (max-width: 768px) {
-  /* Always show on touch devices — there's no hover to reveal them. */
-  .marquee-arrow { opacity: 1; pointer-events: auto; }
+.marquee-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 20px;
 }
+.marquee-arrow:hover { transform: scale(1.08); }
 
 /* ============================================================
    CUSTOM DESIGN

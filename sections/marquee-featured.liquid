@@ -20,9 +20,6 @@
 
   <!-- Marquee Row 1: Left to Right -->
   <div class="marquee-wrapper" aria-label="{{ section.settings.heading_1 }}">
-    <button class="slider-arrow marquee-arrow marquee-arrow--prev" id="marquee1Prev" aria-label="Scroll back to previous featured products">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
     <div class="marquee-track marquee-track--ltr" id="marquee1">
       {%- assign featured = collections[section.settings.featured_collection.handle] | default: collections.all -%}
       {%- for product in featured.products limit: 10 -%}
@@ -50,7 +47,12 @@
         {%- endfor -%}
       {%- endif -%}
     </div>
-    <button class="slider-arrow marquee-arrow marquee-arrow--next" id="marquee1Next" aria-label="Scroll forward through featured products">
+  </div>
+  <div class="marquee-controls desktop-only">
+    <button class="slider-arrow marquee-arrow" id="marquee1Prev" aria-label="Scroll back to previous featured products">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="slider-arrow marquee-arrow" id="marquee1Next" aria-label="Scroll forward through featured products">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
@@ -64,9 +66,6 @@
 
   <!-- Marquee Row 2: Right to Left -->
   <div class="marquee-wrapper" aria-label="{{ section.settings.heading_2 }}">
-    <button class="slider-arrow marquee-arrow marquee-arrow--prev" id="marquee2Prev" aria-label="Scroll back to previous new arrivals">
-      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
-    </button>
     <div class="marquee-track marquee-track--rtl" id="marquee2">
       {%- assign new_col = collections[section.settings.new_collection.handle] | default: collections.all -%}
       {%- for product in new_col.products limit: 10 -%}
@@ -94,7 +93,12 @@
         {%- endfor -%}
       {%- endif -%}
     </div>
-    <button class="slider-arrow marquee-arrow marquee-arrow--next" id="marquee2Next" aria-label="Scroll forward through new arrivals">
+  </div>
+  <div class="marquee-controls desktop-only">
+    <button class="slider-arrow marquee-arrow" id="marquee2Prev" aria-label="Scroll back to previous new arrivals">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="slider-arrow marquee-arrow" id="marquee2Next" aria-label="Scroll forward through new arrivals">
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
     </button>
   </div>
