@@ -15,6 +15,7 @@
         "slide-1": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_yhbp16yhbp16yhbp.png",
             "heading": "New Season. New Edge.",
             "subheading": "Premium jackets crafted for the bold",
             "cta_text": "Explore Collection",
@@ -25,6 +26,7 @@
         "slide-2": {
           "type": "slide",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_i3s3p9i3s3p9i3s3.png",
             "heading": "Built to Last",
             "subheading": "From street to summit — outerwear that moves with you",
             "cta_text": "Shop Now",
