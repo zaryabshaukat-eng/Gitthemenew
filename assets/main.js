@@ -34,6 +34,7 @@ function trapFocus(el) {
    ============================================================ */
 const header = $('#siteHeader');
 const mobileBottomBar = $('#mobileBottomBar');
+let lastScrollY = window.scrollY;
 
 window.addEventListener('scroll', () => {
   const y = window.scrollY;
@@ -41,6 +42,22 @@ window.addEventListener('scroll', () => {
   if (mobileBottomBar && window.innerWidth < 768) {
     mobileBottomBar.classList.toggle('is-visible', y > 120);
   }
+
+  // Mobile: hide the top nav while scrolling down past the hero, show it
+  // again on scroll-up or once back near the top of the page.
+  if (header && window.innerWidth < 768) {
+    const scrollingDown = y > lastScrollY;
+    if (y <= 10) {
+      header.classList.remove('header-hidden');
+    } else if (scrollingDown && y > 120) {
+      header.classList.add('header-hidden');
+    } else if (!scrollingDown) {
+      header.classList.remove('header-hidden');
+    }
+  } else if (header) {
+    header.classList.remove('header-hidden');
+  }
+  lastScrollY = y;
 }, { passive: true });
 
 /* ============================================================

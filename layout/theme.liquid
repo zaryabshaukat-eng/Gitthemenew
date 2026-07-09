@@ -11,6 +11,9 @@
   <meta property="og:image" content="{{ settings.og_image | image_url: width: 1200, height: 630, crop: 'center' }}">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="{{ canonical_url }}">
+  {%- if settings.favicon -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
   <title>{{ page_title | default: shop.name }} | {{ shop.name }}</title>
 
   {{ content_for_header }}

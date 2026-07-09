@@ -355,9 +355,15 @@ input, textarea, select { font-family: inherit; }
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--clr-light-border);
-  transition: box-shadow var(--transition-base);
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
 }
 .site-header.scrolled { box-shadow: var(--shadow-md); }
+
+@media (max-width: 768px) {
+  /* Hide the top nav while scrolling down past the hero; bring it back
+     as soon as the user scrolls up or returns to the top. */
+  .site-header.header-hidden { transform: translateY(-100%); }
+}
 
 .site-header__inner {
   max-width: var(--container-max);
