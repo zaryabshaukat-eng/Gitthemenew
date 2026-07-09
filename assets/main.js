@@ -140,6 +140,70 @@ window.addEventListener('scroll', () => {
 /* ============================================================
    RECOMMENDED PRODUCTS SLIDER
    ============================================================ */
+/* ============================================================
+   MARQUEE ROWS — auto-drift with pausable, stylish scroll-back controls
+   ============================================================ */
+function initMarqueeSlider(trackId, prevId, nextId, startSign) {
+  const track = $('#' + trackId);
+  if (!track) return;
+  const prevBtn = $('#' + prevId);
+  const nextBtn = $('#' + nextId);
+  const wrapper = track.closest('.marquee-wrapper');
+
+  const SPEED = 0.45; // px per frame, slow continuous drift
+  const NUDGE = 320; // px moved per manual arrow click
+  let sign = startSign; // -1 = drifts toward negative X, +1 = drifts toward 0
+  let pos = sign === 1 ? -(track.scrollWidth / 2) : 0;
+  let hovered = false;
+  let manualPause = false;
+  let resumeTimer = null;
+  let rafId = null;
+
+  track.style.transform = `translateX(${pos}px)`;
+
+  function halfWidth() { return track.scrollWidth / 2 || 1; }
+
+  function frame() {
+    if (!hovered && !manualPause) {
+      pos += sign * SPEED;
+      const half = halfWidth();
+      if (sign === -1 && pos <= -half) pos += half;
+      if (sign === 1 && pos >= 0) pos -= half;
+      track.style.transform = `translateX(${pos}px)`;
+    }
+    rafId = requestAnimationFrame(frame);
+  }
+  rafId = requestAnimationFrame(frame);
+
+  function pauseThenResume() {
+    manualPause = true;
+    clearTimeout(resumeTimer);
+    resumeTimer = setTimeout(() => { manualPause = false; }, 3000);
+  }
+
+  function nudge(direction) {
+    // direction: -1 = step back (toward previously-seen items), 1 = step forward
+    // (continue in the row's own auto-drift direction). Translate that into
+    // an actual pixel move relative to this row's drift sign so "back"
+    // always reveals items the user already scrolled past.
+    const half = halfWidth();
+    pos += direction * sign * NUDGE;
+    if (pos > 0) pos -= half;
+    if (pos < -half) pos += half;
+    track.style.transform = `translateX(${pos}px)`;
+    pauseThenResume();
+  }
+
+  on(prevBtn, 'click', () => nudge(-1));
+  on(nextBtn, 'click', () => nudge(1));
+  on(wrapper, 'mouseenter', () => { hovered = true; });
+  on(wrapper, 'mouseleave', () => { hovered = false; });
+  on(track, 'touchstart', pauseThenResume, { passive: true });
+}
+
+initMarqueeSlider('marquee1', 'marquee1Prev', 'marquee1Next', -1);
+initMarqueeSlider('marquee2', 'marquee2Prev', 'marquee2Next', 1);
+
 (function shuffleRecTrack() {
   const track = $('#recTrack');
   if (!track || track.dataset.shuffle !== 'true') return;
@@ -971,16 +1035,6 @@ document.addEventListener('click', async e => {
       if (!input) return;
       input.type = input.type === 'password' ? 'text' : 'password';
     });
-  });
-})();
-
-/* ============================================================
-   MARQUEE — pause on touch
-   ============================================================ */
-(function initMarquee() {
-  $$('.marquee-track').forEach(track => {
-    on(track, 'touchstart', () => { track.style.animationPlayState = 'paused'; }, { passive: true });
-    on(track, 'touchend',   () => { track.style.animationPlayState = ''; });
   });
 })();
 

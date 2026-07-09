@@ -1363,23 +1363,37 @@ input, textarea, select { font-family: inherit; }
    MARQUEE
    ============================================================ */
 .marquee-section { overflow: hidden; }
-.marquee-wrapper { overflow: hidden; padding: 16px 0; }
+.marquee-wrapper { position: relative; overflow: hidden; padding: 16px 0; }
 .marquee-track {
   display: flex;
   gap: 20px;
   width: max-content;
+  will-change: transform;
 }
-.marquee-track--ltr { animation: marqueeLeft 40s linear infinite; }
-.marquee-track--rtl { animation: marqueeRight 40s linear infinite; }
-.marquee-track:hover { animation-play-state: paused; }
 
-@keyframes marqueeLeft {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+/* Stylish scroll-back controls layered over each marquee row so a shopper
+   who spots something they liked can pause the drift and step back to it. */
+.marquee-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 5;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base), background var(--transition-base), transform var(--transition-base);
 }
-@keyframes marqueeRight {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+.marquee-wrapper:hover .marquee-arrow,
+.marquee-arrow:focus-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+.marquee-arrow--prev { left: clamp(8px, 2vw, 24px); }
+.marquee-arrow--next { right: clamp(8px, 2vw, 24px); }
+.marquee-arrow:hover { transform: translateY(-50%) scale(1.08); }
+
+@media (max-width: 768px) {
+  /* Always show on touch devices — there's no hover to reveal them. */
+  .marquee-arrow { opacity: 1; pointer-events: auto; }
 }
 
 /* ============================================================
