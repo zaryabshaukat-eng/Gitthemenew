@@ -8,7 +8,13 @@
   <meta property="og:title" content="{{ page_title | default: shop.name | escape }}">
   <meta property="og:description" content="{{ page_description | default: shop.description | escape }}">
   <meta property="og:url" content="{{ canonical_url }}">
-  <meta property="og:image" content="{{ settings.og_image | image_url: width: 1200, height: 630, crop: 'center' }}">
+  {%- if settings.og_image -%}
+    <meta property="og:image" content="{{ settings.og_image | image_url: width: 1200, height: 630, crop: 'center' }}">
+  {%- elsif product.featured_image -%}
+    <meta property="og:image" content="{{ product.featured_image | image_url: width: 1200, height: 630, crop: 'center' }}">
+  {%- elsif shop.brand.logo -%}
+    <meta property="og:image" content="{{ shop.brand.logo | image_url: width: 1200, height: 630, crop: 'center' }}">
+  {%- endif -%}
   <meta name="twitter:card" content="summary_large_image">
   <link rel="canonical" href="{{ canonical_url }}">
   {%- if settings.favicon -%}
