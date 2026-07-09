@@ -61,6 +61,35 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 /* ============================================================
+   DESKTOP CATEGORY STRIP (hover flyout + keyboard/touch support)
+   ============================================================ */
+(function initCategoryStrip() {
+  const items = $$('.category-strip__item.has-children');
+  if (!items.length) return;
+
+  function closeAll(except) {
+    items.forEach(item => { if (item !== except) item.classList.remove('is-open'); });
+  }
+
+  items.forEach(item => {
+    const link = $('.category-strip__link', item);
+    on(link, 'click', e => {
+      // Keep default navigation to the master category, but on touch/coarse
+      // pointers the first tap reveals sub-categories instead of navigating.
+      if (window.matchMedia('(hover: none)').matches && !item.classList.contains('is-open')) {
+        e.preventDefault();
+        closeAll(item);
+        item.classList.add('is-open');
+      }
+    });
+  });
+
+  on(document, 'click', e => {
+    if (!e.target.closest('.category-strip__item.has-children')) closeAll();
+  });
+})();
+
+/* ============================================================
    HERO CAROUSEL
    ============================================================ */
 (function initHeroCarousel() {
