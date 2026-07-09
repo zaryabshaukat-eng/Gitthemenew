@@ -43,7 +43,7 @@
       <div class="pdp-images">
         <div class="pdp-images__main" id="productGalleryMain">
           {%- for image in product.images -%}
-            <div class="product-gallery-main__item {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" style="position:absolute;inset:0;display:none;">
+            <div class="product-gallery-main__item {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}">
               <img
                 src="{{ image | image_url: width: 1000, height: 1200, crop: 'center' }}"
                 srcset="{{ image | image_url: width: 600, height: 720, crop: 'center' }} 600w, {{ image | image_url: width: 1000, height: 1200, crop: 'center' }} 1000w"
@@ -54,7 +54,7 @@
                 itemprop="image">
             </div>
           {%- else -%}
-            <div class="product-gallery-main__item is-active" style="position:absolute;inset:0;">
+            <div class="product-gallery-main__item is-active">
               <div style="width:100%;height:100%;background:var(--clr-bg-soft);"></div>
             </div>
           {%- endfor -%}

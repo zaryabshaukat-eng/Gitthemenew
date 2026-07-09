@@ -663,14 +663,14 @@ window.addEventListener('scroll', () => {
   });
 
   // Gallery
-  const thumbs    = $$('.product-gallery-thumb');
+  const thumbs    = $$('.pdp-thumb');
   const mainItems = $$('.product-gallery-main__item');
   let gIdx = 0;
 
   function showSlide(idx) {
     gIdx = idx;
     mainItems.forEach((item, i) => item.classList.toggle('is-active', i === idx));
-    thumbs.forEach((t, i) => t.classList.toggle('is-active', i === idx));
+    thumbs.forEach((t, i) => t.classList.toggle('pdp-thumb--active', i === idx));
   }
 
   thumbs.forEach((thumb, i) => on(thumb, 'click', () => showSlide(i)));

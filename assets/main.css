@@ -2077,24 +2077,16 @@ body.template-customers-register { padding-top: 0; }
 @media (max-width: 768px) {
   body { padding-bottom: 80px; }
 
-  /* Keep filter sidebar visible on mobile — compact 2-column layout */
+  /* Filters live in the slide-up drawer on mobile; the sidebar column is hidden
+     so the product grid gets the full width. */
   .product-gallery__layout {
-    grid-template-columns: 110px 1fr;
-    gap: 12px;
+    grid-template-columns: 1fr;
+    gap: 0;
   }
   .product-gallery__filters.desktop-filters {
-    display: block !important;
-    position: static;
+    display: none !important;
   }
-  .filter-group { padding: 10px 0; }
-  .filter-group__title { font-size: 8px; margin-bottom: 8px; letter-spacing: .1em; }
-  .filter-colors { gap: 5px; }
-  .color-swatch { width: 20px; height: 20px; }
-  .filter-sizes { gap: 4px; flex-direction: column; align-items: flex-start; }
-  .size-btn { padding: 4px 6px; font-size: 10px; width: 100%; text-align: center; }
-  .price-range-slider__values { font-size: 10px; }
-  .btn-clear-filters { font-size: 9px; padding: 6px 0; }
-  .mobile-filter-bar { display: none !important; } /* sidebar replaces the drawer button */
+  .mobile-filter-bar { display: flex !important; }
 }
 
 /* ============================================================
@@ -2266,6 +2258,12 @@ body.template-customers-register { padding-top: 0; }
   border-radius: var(--radius-lg);
   overflow: hidden;
   position: relative;
+}
+@media (max-width: 768px) {
+  /* Sticky positioning on a full-width mobile column causes the image to
+     jump/reflow as the browser chrome (address bar) resizes on scroll. */
+  .pdp-images { position: static; top: auto; }
+  .pdp-images__main { aspect-ratio: 1 / 1.15; }
 }
 .pdp-images__thumbs {
   display: flex;
