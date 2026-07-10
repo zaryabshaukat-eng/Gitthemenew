@@ -1,3 +1,10 @@
+{%- assign page_title = collection.title -%}
+{%- if collection.description != blank -%}
+  {%- assign page_description = collection.description | strip_html | truncate: 160 -%}
+{%- else -%}
+  {%- assign page_description = 'Shop ' | append: collection.title | append: ' at ' | append: shop.name | append: '. Premium jackets built for style and durability.' -%}
+{%- endif -%}
+
 <div class="collection-page">
   <div class="container">
     <nav class="breadcrumb" aria-label="Breadcrumb">

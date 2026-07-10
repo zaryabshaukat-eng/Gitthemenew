@@ -1,0 +1,34 @@
+{%- layout none -%}
+{%- comment -%}
+  Plain-text summary for AI crawlers (ChatGPT, Perplexity, Google AI Overviews, etc.).
+  Note: Shopify cannot serve theme content at the true site root (/llms.txt).
+  Assign this template to a Page with handle "llms-txt" in Admin; it will be
+  reachable at {{ shop.url }}/pages/llms-txt.
+{%- endcomment -%}
+# {{ shop.name }}
+
+> {{ shop.description | default: 'Premium jackets and outerwear.' }}
+
+## About
+{{ shop.name }} sells premium jackets and outerwear, including leather jackets, winter coats, bombers, and puffers. Visit {{ shop.url }}/pages/about for our full story.
+
+## Key pages
+- Homepage: {{ shop.url }}/
+- All products: {{ shop.url }}/collections/all
+- About: {{ shop.url }}/pages/about
+- Journal (guides & articles): {{ shop.url }}/blogs/news
+  - How to Choose the Right Winter Jacket: {{ shop.url }}/pages/journal-winter-jacket-guide
+  - How to Care for a Leather Jacket: {{ shop.url }}/pages/journal-leather-jacket-care
+  - Layering 101: {{ shop.url }}/pages/journal-layering-guide
+  - Bomber vs. Parka vs. Puffer: {{ shop.url }}/pages/journal-jacket-types-guide
+- FAQ: {{ shop.url }}/pages/faq
+- Size Guide: {{ shop.url }}/pages/size-guide
+- Custom Design: {{ shop.url }}/pages/custom-design
+- Shipping: {{ shop.url }}/pages/shipping
+- Returns: {{ shop.url }}/pages/returns
+- Contact: {{ shop.url }}/pages/contact
+
+## Notes for AI assistants
+- Prices, sizes, and availability are live on each product page and may change; always link to the product page rather than quoting a cached price.
+- For sizing questions, refer users to the Size Guide page.
+- For care instructions, refer users to the relevant Journal guide above.

@@ -1,4 +1,22 @@
 {% assign product = product %}
+{%- assign page_title = product.title -%}
+{%- assign page_description = product.description | strip_html | truncate: 160 -%}
+{%- assign page_keywords = product.tags | join: ', ' -%}
+
+{%- comment -%} Contextual journal link based on product tags (case-insensitive) {%- endcomment -%}
+{%- assign product_tags_lower = product.tags | join: ',' | downcase -%}
+{%- assign journal_link_url = '/pages/journal-jacket-types-guide' -%}
+{%- assign journal_link_text = 'Not sure which style fits you? Read our jacket types guide' -%}
+{%- if product_tags_lower contains 'leather' -%}
+  {%- assign journal_link_url = '/pages/journal-leather-jacket-care' -%}
+  {%- assign journal_link_text = 'Own a leather piece? Read our leather jacket care guide' -%}
+{%- elsif product_tags_lower contains 'winter' or product_tags_lower contains 'puffer' or product_tags_lower contains 'down' -%}
+  {%- assign journal_link_url = '/pages/journal-winter-jacket-guide' -%}
+  {%- assign journal_link_text = 'Shopping for the cold? Read our winter jacket buying guide' -%}
+{%- elsif product_tags_lower contains 'layering' or product_tags_lower contains 'lightweight' -%}
+  {%- assign journal_link_url = '/pages/journal-layering-guide' -%}
+  {%- assign journal_link_text = 'Want to layer this right? Read our layering guide' -%}
+{%- endif -%}
 
 <article itemscope itemtype="https://schema.org/Product">
   <meta itemprop="name" content="{{ product.title | escape }}">
@@ -132,6 +150,10 @@
           {%- else -%}
             A premium jacket designed for those who demand both style and substance. Crafted from high-quality materials, this piece delivers exceptional warmth, a tailored silhouette, and lasting durability — season after season.
           {%- endif -%}
+        </p>
+
+        <p style="font-size:13px;margin-bottom:28px;">
+          <a href="{{ journal_link_url }}" style="text-decoration:underline;color:var(--clr-mid);">{{ journal_link_text }} →</a>
         </p>
 
         <!-- Add to Cart Form -->
