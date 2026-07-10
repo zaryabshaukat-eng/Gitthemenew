@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "current": {
     "color_primary": "#C8A96E",
@@ -5,7 +14,39 @@
     "color_text": "#0a0a0a",
     "font_heading": "cormorant_garamond_n4",
     "font_body": "inter_n4",
-    "favicon": null
+    "sections": {
+      "announcement-bar": {
+        "type": "announcement-bar",
+        "settings": {
+          "message_1": "Free shipping on orders over $120",
+          "message_2": "New sales available",
+          "message_3": "Let's Dive in to Sale",
+          "sale_link": ""
+        }
+      },
+      "header": {
+        "type": "header",
+        "settings": {
+          "store_name": "UNIVERSAL JACKETS",
+          "main_menu": "main-menu"
+        }
+      },
+      "footer": {
+        "type": "footer",
+        "settings": {
+          "tagline": "Universal Jackets — premium outerwear, made to be worn.",
+          "address": "Shiloh Road, Plano, Texas United States",
+          "phone": "+1 (212) 555-0142",
+          "email": "digitalsolutionsinctx@gmail.com",
+          "instagram": "",
+          "facebook": "",
+          "tiktok": "",
+          "pinterest": "",
+          "shop_menu": ""
+        }
+      }
+    },
+    "content_for_index": []
   },
   "presets": {}
 }
