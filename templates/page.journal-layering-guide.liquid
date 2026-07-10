@@ -67,35 +67,8 @@
         </a>
       </div>
 
-      <div class="article-page__related">
-        <h2 class="section-title">More from the Journal</h2>
-        <div class="blog-grid blog-grid--3">
-          <article class="blog-article-card">
-            <a href="/pages/journal-winter-jacket-guide" class="blog-article-card__img-wrap blog-article-card__img-wrap--placeholder"></a>
-            <div class="blog-article-card__body">
-              <time>Jan 08, 2026</time>
-              <h3 class="blog-article-card__title"><a href="/pages/journal-winter-jacket-guide">How to Choose the Right Winter Jacket</a></h3>
-              <a href="/pages/journal-winter-jacket-guide" class="blog-article-card__link">Read →</a>
-            </div>
-          </article>
-          <article class="blog-article-card">
-            <a href="/pages/journal-leather-jacket-care" class="blog-article-card__img-wrap blog-article-card__img-wrap--placeholder"></a>
-            <div class="blog-article-card__body">
-              <time>Jan 22, 2026</time>
-              <h3 class="blog-article-card__title"><a href="/pages/journal-leather-jacket-care">How to Care for a Leather Jacket</a></h3>
-              <a href="/pages/journal-leather-jacket-care" class="blog-article-card__link">Read →</a>
-            </div>
-          </article>
-          <article class="blog-article-card">
-            <a href="/pages/journal-jacket-types-guide" class="blog-article-card__img-wrap blog-article-card__img-wrap--placeholder"></a>
-            <div class="blog-article-card__body">
-              <time>Feb 19, 2026</time>
-              <h3 class="blog-article-card__title"><a href="/pages/journal-jacket-types-guide">Bomber vs. Parka vs. Puffer</a></h3>
-              <a href="/pages/journal-jacket-types-guide" class="blog-article-card__link">Read →</a>
-            </div>
-          </article>
-        </div>
-      </div>
     </div>
   </div>
 </article>
+
+{%- render 'article-extras', current_journal_url: page.url -%}

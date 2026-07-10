@@ -1,0 +1,132 @@
+{%- comment -%}
+  Shared "homepage-style" content block for journal article pages:
+  product marquee -> blog area (more journal posts) -> product marquee.
+  Usage: {%- render 'article-extras', current_journal_url: page.url -%}
+{%- endcomment -%}
+
+{%- assign current_journal_url = current_journal_url | strip | remove: "/index" -%}
+{%- assign marquee_products = collections.all.products -%}
+{%- assign marquee_products_rev = collections.all.products | reverse -%}
+
+{%- assign journal_posts = "How to Choose the Right Winter Jacket in 2026|/pages/journal-winter-jacket-guide|A complete buyer's guide to insulation, shells, and fit so you stay warm without overheating.|Jan 08, 2026;;How to Care for a Leather Jacket: The Complete Guide|/pages/journal-leather-jacket-care|Cleaning, conditioning, and storage tips that keep genuine leather supple for decades.|Jan 22, 2026;;Layering 101: How to Dress for Cold Weather Without the Bulk|/pages/journal-layering-guide|The base-mid-shell system stylists and mountaineers actually use, explained simply.|Feb 05, 2026;;Bomber vs. Parka vs. Puffer: Which Jacket Is Right for You|/pages/journal-jacket-types-guide|We break down warmth, weight, and style for the four most popular outerwear silhouettes.|Feb 19, 2026" | split: ";;" -%}
+
+<!-- Marquee 1: You Might Also Like -->
+<section class="marquee-section section-spacing" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Shop the Story</p>
+      <h2 class="section-title">You Might Also Like</h2>
+    </div>
+  </div>
+  <div class="marquee-wrapper" aria-label="You Might Also Like">
+    <div class="marquee-track marquee-track--ltr" id="marquee1">
+      {%- if marquee_products.size > 0 -%}
+        {%- for product in marquee_products limit: 10 -%}
+          {%- render 'product-card', product: product, card_class: 'marquee-card' -%}
+        {%- endfor -%}
+        {%- for product in marquee_products limit: 10 -%}
+          {%- render 'product-card', product: product, card_class: 'marquee-card' -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..6) -%}
+          <div class="product-card marquee-card product-card--placeholder">
+            <div class="product-card__image-wrap"><div class="product-card__placeholder-img"></div></div>
+            <div class="product-card__info">
+              <p class="product-card__title">Featured Jacket {{ i }}</p>
+              <p class="product-card__price">$189.00</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="marquee-controls desktop-only">
+    <button class="slider-arrow marquee-arrow" id="marquee1Prev" aria-label="Scroll back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="slider-arrow marquee-arrow" id="marquee1Next" aria-label="Scroll forward">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</section>
+
+<!-- Blog area: more from the journal -->
+<section class="section-spacing article-page__related" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Journal</p>
+      <h2 class="section-title">More from the Journal</h2>
+    </div>
+    <div class="blog-grid blog-grid--3">
+      {%- assign shown = 0 -%}
+      {%- for post in journal_posts -%}
+        {%- assign parts = post | split: "|" -%}
+        {%- assign post_url = parts[1] | strip -%}
+        {%- if post_url != current_journal_url and shown < 3 -%}
+          {%- assign shown = shown | plus: 1 -%}
+          <article class="blog-article-card" itemscope itemtype="https://schema.org/BlogPosting">
+            <a href="{{ parts[1] }}" class="blog-article-card__img-wrap blog-article-card__img-wrap--placeholder"></a>
+            <div class="blog-article-card__body">
+              <div class="blog-article-card__meta">
+                <time itemprop="datePublished">{{ parts[3] }}</time>
+                <span>· Universal Jackets Team</span>
+              </div>
+              <h3 class="blog-article-card__title" itemprop="headline"><a href="{{ parts[1] }}">{{ parts[0] }}</a></h3>
+              <p class="blog-article-card__excerpt" itemprop="description">{{ parts[2] }}</p>
+              <a href="{{ parts[1] }}" class="blog-article-card__link">
+                Read Article
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+              </a>
+            </div>
+          </article>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    <div style="text-align:center; margin-top:32px;">
+      <a href="/blogs/news" class="btn btn-outline">
+        View All Articles
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Marquee 2: New Arrivals -->
+<section class="marquee-section section-spacing" data-aos="fade-up">
+  <div class="container">
+    <div class="section-header">
+      <p class="section-label">Fresh In</p>
+      <h2 class="section-title">New Arrivals</h2>
+    </div>
+  </div>
+  <div class="marquee-wrapper" aria-label="New Arrivals">
+    <div class="marquee-track marquee-track--rtl" id="marquee2">
+      {%- if marquee_products_rev.size > 0 -%}
+        {%- for product in marquee_products_rev limit: 10 -%}
+          {%- render 'product-card', product: product, card_class: 'marquee-card' -%}
+        {%- endfor -%}
+        {%- for product in marquee_products_rev limit: 10 -%}
+          {%- render 'product-card', product: product, card_class: 'marquee-card' -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..6) -%}
+          <div class="product-card marquee-card product-card--placeholder">
+            <div class="product-card__image-wrap"><div class="product-card__placeholder-img"></div></div>
+            <div class="product-card__info">
+              <p class="product-card__title">New Arrival {{ i }}</p>
+              <p class="product-card__price">$159.00</p>
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+  <div class="marquee-controls desktop-only">
+    <button class="slider-arrow marquee-arrow" id="marquee2Prev" aria-label="Scroll back">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+    </button>
+    <button class="slider-arrow marquee-arrow" id="marquee2Next" aria-label="Scroll forward">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+    </button>
+  </div>
+</section>
