@@ -24,6 +24,7 @@
         "look-2": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Jul_10_2026_03_52_44_PM.png",
             "alt": "",
             "link": "",
             "tall": false
@@ -32,6 +33,7 @@
         "look-3": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_2q1avm2q1avm2q1a.png",
             "alt": "",
             "link": "",
             "tall": false
@@ -40,6 +42,7 @@
         "look-4": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Jul_10_2026_04_14_19_PM.png",
             "alt": "",
             "link": "",
             "tall": false
@@ -48,6 +51,7 @@
         "look-5": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_k0egiyk0egiyk0eg.png",
             "alt": "",
             "link": "",
             "tall": true
@@ -56,6 +60,7 @@
         "look-6": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Jul_10_2026_03_52_31_PM.png",
             "alt": "",
             "link": "",
             "tall": false
@@ -64,6 +69,7 @@
         "look-7": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/Gemini_Generated_Image_ty1xxbty1xxbty1x.png",
             "alt": "",
             "link": "",
             "tall": false
@@ -72,6 +78,7 @@
         "look-8": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/WhatsApp_Image_2026-07-10_at_2.05.15_PM.jpg",
             "alt": "",
             "link": "",
             "tall": false
@@ -80,6 +87,7 @@
         "look-9": {
           "type": "look",
           "settings": {
+            "image": "shopify://shop_images/ChatGPT_Image_Jul_10_2026_04_15_56_PM.png",
             "alt": "",
             "link": "",
             "tall": true
