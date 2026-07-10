@@ -198,7 +198,68 @@ function initMarqueeSlider(trackId, prevId, nextId, startSign) {
   on(nextBtn, 'click', () => nudge(1));
   on(wrapper, 'mouseenter', () => { hovered = true; });
   on(wrapper, 'mouseleave', () => { hovered = false; });
-  on(track, 'touchstart', pauseThenResume, { passive: true });
+
+  // Finger/pointer drag — lets touch (and mouse) users slide the row
+  // left/right directly instead of relying on the desktop-only buttons.
+  const DRAG_THRESHOLD = 6; // px of movement before we treat this as a real drag
+  let dragging = false; // true once threshold is crossed — suppresses the click
+  let tracking = false; // true from touch/pointer down until release
+  let dragStartX = 0;
+  let dragStartPos = 0;
+
+  function dragStart(clientX) {
+    tracking = true;
+    dragging = false;
+    dragStartX = clientX;
+    dragStartPos = pos;
+  }
+  function dragMove(clientX) {
+    if (!tracking) return;
+    const delta = clientX - dragStartX;
+    if (!dragging && Math.abs(delta) > DRAG_THRESHOLD) {
+      dragging = true;
+      manualPause = true;
+      clearTimeout(resumeTimer);
+      track.classList.add('is-dragging');
+    }
+    if (!dragging) return;
+    const half = halfWidth();
+    let next = dragStartPos + delta;
+    // Wrap so a long drag doesn't run the track off into empty space.
+    while (next > 0) next -= half;
+    while (next < -half) next += half;
+    pos = next;
+    track.style.transform = `translateX(${pos}px)`;
+  }
+  function dragEnd() {
+    if (!tracking) return;
+    tracking = false;
+    if (dragging) {
+      track.classList.remove('is-dragging');
+      pauseThenResume();
+    }
+    // Leave `dragging` true through this tick so a trailing click on a
+    // product card (from the same gesture) can be suppressed, then clear it.
+    setTimeout(() => { dragging = false; }, 0);
+  }
+
+  // Prevent an actual drag gesture from also firing a card-link click.
+  on(track, 'click', (e) => { if (dragging) { e.preventDefault(); e.stopPropagation(); } }, true);
+
+  on(track, 'touchstart', (e) => dragStart(e.touches[0].clientX), { passive: true });
+  on(track, 'touchmove', (e) => dragMove(e.touches[0].clientX), { passive: true });
+  on(track, 'touchend', dragEnd);
+  on(track, 'touchcancel', dragEnd);
+
+  on(track, 'pointerdown', (e) => {
+    if (e.pointerType === 'touch') return; // handled by touch events above
+    dragStart(e.clientX);
+    track.setPointerCapture && track.setPointerCapture(e.pointerId);
+  });
+  on(track, 'pointermove', (e) => { if (e.pointerType !== 'touch') dragMove(e.clientX); });
+  on(track, 'pointerup', (e) => { if (e.pointerType !== 'touch') dragEnd(); });
+  on(track, 'pointercancel', (e) => { if (e.pointerType !== 'touch') dragEnd(); });
+  on(track, 'lostpointercapture', (e) => { if (e.pointerType !== 'touch') dragEnd(); });
 }
 
 initMarqueeSlider('marquee1', 'marquee1Prev', 'marquee1Next', -1);

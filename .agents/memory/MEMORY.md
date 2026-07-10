@@ -1,0 +1,3 @@
+- [Selector helper footgun](selector-helpers.md) — this theme's assets/main.js has `$` (single) vs `$$` (array) query helpers; easy to swap by mistake, always double-check after editing selector code.
+- [Edit tool silent mismatches](edit-tool-verification.md) — after repeated Edit calls on files with near-duplicate blocks (e.g. two similar marquee rows), always re-read the file to confirm the intended block changed, not a look-alike.
+- [Shopify page links vs templates](shopify-page-templates.md) — footer/nav links to /pages/<handle> only work if a Page record with that handle exists in Shopify Admin; theme templates/page.*.liquid alone don't create the route.

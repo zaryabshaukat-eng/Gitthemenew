@@ -1378,11 +1378,17 @@ input, textarea, select { font-family: inherit; }
 .marquee-track.is-dragging { cursor: grabbing; }
 
 .marquee-controls {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
   gap: 20px;
   margin-top: 20px;
+}
+@media (min-width: 768px) {
+  /* .desktop-only forces display:block !important; upgrade this row to a
+     centered flex layout at the same breakpoint so the two buttons sit
+     side-by-side with spacing instead of stacking. */
+  .marquee-controls.desktop-only { display: flex !important; }
 }
 .marquee-arrow:hover { transform: scale(1.08); }
 
