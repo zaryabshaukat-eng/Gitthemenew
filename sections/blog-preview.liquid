@@ -61,14 +61,15 @@
               </article>
             {%- endfor -%}
           {%- else -%}
-            {%- assign sample_titles = "How to Style a Bomber Jacket This Season,The Art of Leather Care: A Complete Guide,New Season Drop — What's In Store" | split: "," -%}
-            {%- for title in sample_titles -%}
+            {%- assign sample_posts = "How to Choose the Right Winter Jacket in 2026|/pages/journal-winter-jacket-guide|A complete buyer's guide to insulation, shells, and fit so you stay warm without overheating.|Jan 08, 2026;;How to Care for a Leather Jacket: The Complete Guide|/pages/journal-leather-jacket-care|Cleaning, conditioning, and storage tips that keep genuine leather supple for decades.|Jan 22, 2026;;Layering 101: How to Dress for Cold Weather Without the Bulk|/pages/journal-layering-guide|The base-mid-shell system stylists and mountaineers actually use, explained simply.|Feb 05, 2026;;Bomber vs. Parka vs. Puffer: Which Jacket Is Right for You|/pages/journal-jacket-types-guide|We break down warmth, weight, and style for four popular outerwear silhouettes.|Feb 19, 2026" | split: ";;" -%}
+            {%- for post in sample_posts -%}
+              {%- assign parts = post | split: "|" -%}
               <article class="blog-card">
                 <div class="blog-card__body">
-                  <p class="blog-card__meta">{{ 'now' | date: "%B %Y" }}</p>
-                  <h3 class="blog-card__title">{{ title }}</h3>
-                  <p class="blog-card__excerpt">Explore our latest insights on outerwear, style, and the craft behind every Universal Jacket piece.</p>
-                  <a href="/blogs/{{ blog_handle }}" class="blog-card__link">
+                  <p class="blog-card__meta">{{ parts[3] }}</p>
+                  <h3 class="blog-card__title"><a href="{{ parts[1] }}">{{ parts[0] }}</a></h3>
+                  <p class="blog-card__excerpt">{{ parts[2] }}</p>
+                  <a href="{{ parts[1] }}" class="blog-card__link">
                     Read More
                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
                   </a>
