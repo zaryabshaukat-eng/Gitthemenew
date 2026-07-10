@@ -1,0 +1,27 @@
+{
+  "sections": {
+    "lookbook-grid": {
+      "type": "lookbook-grid",
+      "blocks": {
+        "look-1": { "type": "look", "settings": { "tall": true } },
+        "look-2": { "type": "look", "settings": {} },
+        "look-3": { "type": "look", "settings": {} },
+        "look-4": { "type": "look", "settings": {} },
+        "look-5": { "type": "look", "settings": { "tall": true } },
+        "look-6": { "type": "look", "settings": {} },
+        "look-7": { "type": "look", "settings": {} },
+        "look-8": { "type": "look", "settings": {} },
+        "look-9": { "type": "look", "settings": { "tall": true } }
+      },
+      "block_order": ["look-1", "look-2", "look-3", "look-4", "look-5", "look-6", "look-7", "look-8", "look-9"],
+      "settings": {
+        "eyebrow": "Seasonal Editorial",
+        "heading": "Lookbook — Autumn / Winter 2025",
+        "intro": "Our latest editorial explores the intersection of urban grit and refined craftsmanship. Shot across New York, London, and Tokyo.",
+        "cta_text": "Shop the Collection",
+        "cta_url": "/collections/all"
+      }
+    }
+  },
+  "order": ["lookbook-grid"]
+}
